@@ -15,7 +15,7 @@ var Rea = React.createClass({
     setTimeout(function(){
       console.log('fc')
       this.setState({data: ['3s', '-'+Math.round(Math.random()*10000)+'-a']});
-    }.bind(this), 1000);
+    }.bind(this), 200);
 
   },
   getInitialState: function() {
@@ -23,7 +23,7 @@ var Rea = React.createClass({
   },
   componentDidMount: function() {
     this.refresh();
-    setInterval(this.refresh, 3000);
+    setInterval(this.refresh, 100);
   },
   render: function() {
     return (
