@@ -18,7 +18,6 @@ TreeNode = React.createClass
       div {}, @props.name
       nodes
 
-
 treeData =
   name: 'toto je meno'
   id: 1
