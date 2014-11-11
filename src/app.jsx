@@ -1,4 +1,4 @@
-// tutorial14.js
+
 var CommentList = React.createClass({
   render: function() {
     return (
@@ -15,7 +15,7 @@ var Rea = React.createClass({
     setTimeout(function(){
       console.log('fc')
       this.setState({data: ['3s', '-'+Math.round(Math.random()*10000)+'-a']});
-    }.bind(this), 200);
+    }.bind(this), 500);
 
   },
   getInitialState: function() {
@@ -23,7 +23,7 @@ var Rea = React.createClass({
   },
   componentDidMount: function() {
     this.refresh();
-    setInterval(this.refresh, 100);
+    setInterval(this.refresh, 400);
   },
   render: function() {
     return (
