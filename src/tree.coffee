@@ -11,15 +11,27 @@ Tree = React.createClass
       nodes
 
 TreeNode = React.createClass
+  # collapsed: true
+  getInitialState: ->
+    collapsed: true
+  clickHandler: (e) ->
+    @setState collapsed: !@state.collapsed
+    console.log 'clicked', @state.collapsed
   render: ->
+    collapsed = @props.collapsed ? @state.collapsed
+    triangle = if collapsed then '\u25b6' else '\u25bc'
+    triangle = '\u25B7' if @props.items.length is 0
     nodes = @props.items.map (item) ->
       TreeNode item
+    subitemAttributes =
+      style:
+        display: if collapsed then 'none' else 'block'
     div {key: @props.id, className:'treeSubitems'},
-      div {}, "\u25ba "+@props.name
-      nodes
+      div {onClick: @clickHandler}, triangle+" "+@props.name
+      div subitemAttributes, nodes
 
 treeData =
-  name: 'toto je meno ++'
+  name: 'toto je meno'
   id: 1
   items: [
     {id: 2, name: '1.1 poditem', items: [
