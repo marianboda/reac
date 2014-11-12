@@ -7,19 +7,19 @@ Tree = React.createClass
     nodes = @props.items.map (item) ->
       TreeNode item
     div {key: @props.id},
-      div {}, @props.name
+      div {}, "\u25ba "+@props.name
       nodes
 
 TreeNode = React.createClass
   render: ->
     nodes = @props.items.map (item) ->
       TreeNode item
-    div {key: @props.id},
-      div {}, @props.name
+    div {key: @props.id, className:'treeSubitems'},
+      div {}, "\u25ba "+@props.name
       nodes
 
 treeData =
-  name: 'toto je meno'
+  name: 'toto je meno ++'
   id: 1
   items: [
     {id: 2, name: '1.1 poditem', items: [
@@ -29,5 +29,5 @@ treeData =
     {id: 3, name: '1.2 poditem', items: []}
   ]
 
-React.render React.createElement(Tree, treeData),
+React.render React.createElement(TreeNode, treeData),
   document.getElementById('treeContent')
