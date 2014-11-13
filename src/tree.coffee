@@ -2,16 +2,7 @@ R = React.DOM
 div = R.div
 h1 = R.h1
 
-# Tree = React.createClass
-#   render: ->
-#     nodes = @props.items.map (item) ->
-#       TreeNode item
-#     div {key: @props.id},
-#       div {}, "\u25ba "+@props.name
-#       nodes
-
 TreeNode = React.createClass
-  # collapsed: true
   getInitialState: ->
     collapsed: true
   clickHandler: (e) ->
@@ -29,11 +20,6 @@ TreeNode = React.createClass
     div {key: @props.key, className:'treeSubitems'},
       div {onClick: @clickHandler}, triangle+" "+@props.name
       div subitemAttributes, nodes
-
-# console.log 'react', React, React.factory, TreeNodeClass
-
-# TreeNode = React.createFactory TreeNodeClass
-
 
 treeData =
   name: 'toto je meno'
