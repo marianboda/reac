@@ -1,6 +1,7 @@
 gulp = require 'gulp'
 shell = require 'gulp-shell'
 coffee = require 'gulp-coffee'
+sourcemaps = require 'gulp-sourcemaps'
 jade = require 'gulp-jade'
 mainBowerFiles = require 'main-bower-files'
 coffeelint = require 'gulp-coffeelint'
@@ -51,7 +52,9 @@ gulp.task 'lint', ->
 gulp.task 'coffee', ->
   gulp.src(paths.csFiles)
   .pipe(changed(destDirs.js, {extension: '.js'}))
+  .pipe(sourcemaps.init())
   .pipe(coffee({bare: true}).on("error", (e) -> console.log(e); @end()))
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest(destDirs.js))
 
 gulp.task 'jade', ->

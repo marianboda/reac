@@ -2,13 +2,13 @@ R = React.DOM
 div = R.div
 h1 = R.h1
 
-Tree = React.createClass
-  render: ->
-    nodes = @props.items.map (item) ->
-      TreeNode item
-    div {key: @props.id},
-      div {}, "\u25ba "+@props.name
-      nodes
+# Tree = React.createClass
+#   render: ->
+#     nodes = @props.items.map (item) ->
+#       TreeNode item
+#     div {key: @props.id},
+#       div {}, "\u25ba "+@props.name
+#       nodes
 
 TreeNode = React.createClass
   # collapsed: true
@@ -22,23 +22,28 @@ TreeNode = React.createClass
     triangle = if collapsed then '\u25b6' else '\u25bc'
     triangle = '\u25B7' if @props.items.length is 0
     nodes = @props.items.map (item) ->
-      TreeNode item
+      React.createElement TreeNode, item
     subitemAttributes =
       style:
         display: if collapsed then 'none' else 'block'
-    div {key: @props.id, className:'treeSubitems'},
+    div {key: @props.key, className:'treeSubitems'},
       div {onClick: @clickHandler}, triangle+" "+@props.name
       div subitemAttributes, nodes
 
+# console.log 'react', React, React.factory, TreeNodeClass
+
+# TreeNode = React.createFactory TreeNodeClass
+
+
 treeData =
   name: 'toto je meno'
-  id: 1
+  key: 1
   items: [
-    {id: 2, name: '1.1 poditem', items: [
-      {id: 4, name: '1.1.1 pod pod', items: []}
-      {id: 5, name: '1.1.2 pod pod', items: []}
+    {key: 2, name: '1.1 poditem', items: [
+      {key: 4, name: '1.1.1 pod pod', items: []}
+      {key: 5, name: '1.1.2 pod pod', items: []}
       ]}
-    {id: 3, name: '1.2 poditem', items: []}
+    {key: 3, name: '1.2 poditem', items: []}
   ]
 
 React.render React.createElement(TreeNode, treeData),
