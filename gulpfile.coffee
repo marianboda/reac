@@ -82,4 +82,4 @@ gulp.task 'watch', ->
 gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
 
 gulp.task 'default', ->
-  runSequence ['jsx','coffee', 'jade', 'sass'], 'inject'
+  runSequence ['coffee', 'jade', 'sass']
