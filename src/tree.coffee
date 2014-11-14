@@ -28,6 +28,11 @@ treeData =
     {key: 2, name: '1.1 poditem', items: [
       {key: 4, name: '1.1.1 pod pod', items: []}
       {key: 5, name: '1.1.2 pod pod', items: []}
+      {key: 6, name: '1.1.3 pod pod', items: [
+        {key: 8, name: '1.1.3.1 pod pod', items: []}
+        {key: 9, name: '1.1.3.2 pod pod', items: []}
+        ]}
+      {key: 7, name: '1.1.4 pod pod', items: []}
       ]}
     {key: 3, name: '1.2 poditem', items: []}
   ]
