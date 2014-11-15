@@ -76,12 +76,6 @@ gulp.task 'watch', ->
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
 
-  # nw.build().then ->
-  #   console.log 'all Done :)'
-  # .catch (err) -> console.error err
-
-  # nw.build (err) -> console.log err if err?
-
 gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
 
 gulp.task 'default', ->
