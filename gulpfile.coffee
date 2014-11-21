@@ -76,7 +76,5 @@ gulp.task 'watch', ->
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
 
-gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
-
 gulp.task 'default', ->
   runSequence ['coffee', 'jade', 'sass']
