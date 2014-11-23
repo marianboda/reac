@@ -1,9 +1,26 @@
 Flux = require 'flux'
-Dispatcher = Flux.Dispatcher
+Dispatcher = new Flux.Dispatcher()
 React = require 'react'
 TreeNode = require './tree.coffee'
+console.log Dispatcher
+treeData = require './treedata.coffee'
 
-treeDataStore = require './treedata.coffee'
+treeDataStore =
+  data: treeData
+  token: null
 
-React.render React.createElement(TreeNode, treeDataStore),
+treeDataStore.token = Dispatcher.register (payload) ->
+  if payload.actionType == 'tree-node-added'
+    treeDataStore.data.items.push payload.data
+  true
+
+React.render React.createElement(TreeNode, treeDataStore.data),
   document.getElementById('treeContent')
+
+document.getElementById('addButton').onclick = ->
+  console.log 'td', treeDataStore
+  newItem = name: Math.random().toString(36).substring(8), items: []
+
+  Dispatcher.dispatch
+    actionType: 'tree-node-added'
+    data: newItem

@@ -74,7 +74,7 @@ gulp.task 'jsx', ->
     .pipe(gulp.dest('app/'))
 
 gulp.task 'watch', ->
-  gulp.watch [paths.csFiles], ['coffee']
+  gulp.watch [paths.csFiles], ['browserify']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
 

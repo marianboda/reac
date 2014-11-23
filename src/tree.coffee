@@ -1,8 +1,6 @@
 React = require 'react'
 R = React.DOM
 
-console.log 'react happens :)'
-
 TreeNode = React.createClass
   getInitialState: ->
     collapsed: true
