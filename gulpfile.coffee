@@ -14,6 +14,9 @@ flatten = require 'gulp-flatten'
 runSequence = require 'run-sequence'
 sass = require 'gulp-ruby-sass'
 react = require 'gulp-react'
+browserify = require 'gulp-browserify'
+rename = require 'gulp-rename'
+
 
 srcDirs =
   js: 'src'
@@ -75,6 +78,11 @@ gulp.task 'watch', ->
   gulp.watch [paths.csFiles], ['coffee']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
+
+gulp.task 'browserify', ->
+  gulp.src('src/app.coffee', read: false).pipe(browserify(transform: 'coffeeify', extensions: '.coffee', debug: true))
+  .pipe(rename('bundle.js'))
+  .pipe(gulp.dest('app'))
 
 gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
 
