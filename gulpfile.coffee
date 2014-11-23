@@ -86,4 +86,4 @@ gulp.task 'browserify', ->
 gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
 
 gulp.task 'default', ->
-  runSequence ['coffee', 'jade', 'sass']
+  runSequence ['jade', 'sass', 'browserify']
