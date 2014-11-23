@@ -17,7 +17,6 @@ react = require 'gulp-react'
 browserify = require 'gulp-browserify'
 rename = require 'gulp-rename'
 
-
 srcDirs =
   js: 'src'
   jade: 'src'
