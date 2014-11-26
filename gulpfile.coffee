@@ -68,11 +68,6 @@ gulp.task 'jadeAndInject', ->
 gulp.task 'sass', ->
   gulp.src(paths.sassFiles).pipe(sass()).on('error', (e) -> console.log e).pipe(gulp.dest(destDirs.styles))
 
-gulp.task 'jsx', ->
-  gulp.src('src/**/*.jsx')
-    .pipe(react())
-    .pipe(gulp.dest('app/'))
-
 gulp.task 'watch', ->
   gulp.watch [paths.csFiles], ['browserify']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
@@ -82,8 +77,6 @@ gulp.task 'browserify', ->
   gulp.src('src/app.coffee', read: false).pipe(browserify(transform: 'coffeeify', extensions: '.coffee', debug: true))
   .pipe(rename('bundle.js'))
   .pipe(gulp.dest('app'))
-
-gulp.task 'run', ['build'], shell.task('open ./build/traverser/osx/Traverser.app')
 
 gulp.task 'default', ->
   runSequence ['jade', 'sass', 'browserify']
