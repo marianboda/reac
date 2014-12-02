@@ -4,6 +4,7 @@ R = React.DOM
 TreeNode = React.createClass
   getInitialState: ->
     collapsed: true
+
   clickHandler: (e) ->
     @setState collapsed: !@state.collapsed
     console.log 'clicked', @state.collapsed
@@ -21,7 +22,6 @@ TreeNode = React.createClass
         R.span {className: 'dirTriangle'}, triangle
         R.span {}, @props.name
         R.span {className: 'sizeLabel'}, lengthString
-
       R.div {className: 'treeSubNodes'}, nodes unless collapsed
 
 module.exports = TreeNode
