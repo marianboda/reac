@@ -6,6 +6,7 @@ jade = require 'gulp-jade'
 mainBowerFiles = require 'main-bower-files'
 coffeelint = require 'gulp-coffeelint'
 
+vinyl = require 'vinyl-source-stream'
 changed = require 'gulp-changed'
 async = require 'async'
 inject = require 'gulp-inject'
@@ -14,7 +15,9 @@ flatten = require 'gulp-flatten'
 runSequence = require 'run-sequence'
 sass = require 'gulp-ruby-sass'
 react = require 'gulp-react'
-browserify = require 'gulp-browserify'
+gulpBrowserify = require 'gulp-browserify'
+browserify = require 'browserify'
+watchify = require 'watchify'
 rename = require 'gulp-rename'
 
 srcDirs =
@@ -69,14 +72,26 @@ gulp.task 'sass', ->
   gulp.src(paths.sassFiles).pipe(sass()).on('error', (e) -> console.log e).pipe(gulp.dest(destDirs.styles))
 
 gulp.task 'watch', ->
-  gulp.watch [paths.csFiles], ['browserify']
+  gulp.watch [paths.csFiles], ['gulpBrowserify']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
 
-gulp.task 'browserify', ->
-  gulp.src('src/app.coffee', read: false).pipe(browserify(transform: 'coffeeify', extensions: '.coffee', debug: true))
+gulp.task 'broWatch', ->
+  bundler = watchify(browserify('./src/app.coffee', watchify.args))
+  bundler.transform('coffeeify')
+  rebundle = ->
+    console.log 'rebundling..'
+    bundler.bundle()
+      .on('error', -> console.log 'Browserify Error')
+      .pipe(vinyl('bundleplus.js'))
+      .pipe(gulp.dest('app'))
+  bundler.on 'update', rebundle
+  rebundle()
+
+gulp.task 'gulpBrowserify', ->
+  gulp.src('src/app.coffee', read: false).pipe(gulpBrowserify(transform: 'coffeeify', extensions: '.coffee', debug: true))
   .pipe(rename('bundle.js'))
   .pipe(gulp.dest('app'))
 
 gulp.task 'default', ->
-  runSequence ['jade', 'sass', 'browserify']
+  runSequence ['jade', 'sass', 'gulpBrowserify']
