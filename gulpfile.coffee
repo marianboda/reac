@@ -18,6 +18,7 @@ react = require 'gulp-react'
 gulpBrowserify = require 'gulp-browserify'
 browserify = require 'browserify'
 watchify = require 'watchify'
+livereload = require 'gulp-livereload'
 rename = require 'gulp-rename'
 
 srcDirs =
@@ -71,10 +72,12 @@ gulp.task 'jadeAndInject', ->
 gulp.task 'sass', ->
   gulp.src(paths.sassFiles).pipe(sass()).on('error', (e) -> console.log e).pipe(gulp.dest(destDirs.styles))
 
-gulp.task 'watch', ->
-  gulp.watch [paths.csFiles], ['gulpBrowserify']
+gulp.task 'watch', ['broWatch'], ->
+  # gulp.watch [paths.csFiles],
+  # gulp.watch [paths.csFiles], ['gulpBrowserify']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
+  livereload.listen(35729);
 
 gulp.task 'broWatch', ->
   bundler = watchify(browserify('./src/app.coffee', watchify.args))
@@ -83,8 +86,9 @@ gulp.task 'broWatch', ->
     console.log 'rebundling..'
     bundler.bundle()
       .on('error', -> console.log 'Browserify Error')
-      .pipe(vinyl('bundleplus.js'))
+      .pipe(vinyl('bundle.js'))
       .pipe(gulp.dest('app'))
+      .pipe(livereload())
   bundler.on 'update', rebundle
   rebundle()
 
