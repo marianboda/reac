@@ -64,7 +64,10 @@ gulp.task 'coffee', ->
   .pipe(gulp.dest(destDirs.js))
 
 gulp.task 'jade', ->
-  gulp.src(paths.jadeFiles).pipe(jade({pretty: true})).pipe(gulp.dest(destDirs.templates))
+  gulp.src(paths.jadeFiles)
+      .pipe(jade({pretty: true}))
+      .pipe(gulp.dest(destDirs.templates))
+      .pipe(livereload())
 
 gulp.task 'jadeAndInject', ->
   runSequence 'jade', 'inject'
@@ -77,10 +80,12 @@ gulp.task 'watch', ['broWatch'], ->
   # gulp.watch [paths.csFiles], ['gulpBrowserify']
   gulp.watch [paths.jadeFiles], ['jadeAndInject']
   gulp.watch [paths.sassFiles], ['sass']
-  livereload.listen(35729);
+  livereload.listen(35729)
 
 gulp.task 'broWatch', ->
-  bundler = watchify(browserify('./src/app.coffee', watchify.args))
+  args = watchify.args
+  args.debug = true
+  bundler = watchify(browserify('./src/app.coffee', args))
   bundler.transform('coffeeify')
   rebundle = ->
     console.log 'rebundling..'
