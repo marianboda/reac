@@ -2,6 +2,7 @@ React = require 'react'
 R = React.DOM
 
 TreeNode = React.createClass
+  displayName: 'TreeNode'
   getInitialState: ->
     collapsed: true
 
