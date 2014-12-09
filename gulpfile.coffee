@@ -67,7 +67,7 @@ gulp.task 'jade', ->
   gulp.src(paths.jadeFiles)
       .pipe(jade({pretty: true}))
       .pipe(gulp.dest(destDirs.templates))
-      .pipe(livereload())
+      # .pipe(livereload())
 
 gulp.task 'jadeAndInject', ->
   runSequence 'jade', 'inject'
@@ -103,4 +103,4 @@ gulp.task 'gulpBrowserify', ->
   .pipe(gulp.dest('app'))
 
 gulp.task 'default', ->
-  runSequence ['jade', 'sass', 'gulpBrowserify']
+  runSequence ['jade', 'sass'], 'gulpBrowserify'

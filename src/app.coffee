@@ -9,10 +9,6 @@ I = require 'immutable'
 
 treeData = I.Map treeDataRaw
 
-console.log treeData
-
-
-
 SubPage = React.createClass
   displayName: 'SubPage'
   render: ->
