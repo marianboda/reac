@@ -98,7 +98,12 @@ gulp.task 'broWatch', ->
   rebundle()
 
 gulp.task 'gulpBrowserify', ->
-  gulp.src('src/app.coffee', read: false).pipe(gulpBrowserify(transform: 'coffeeify', extensions: '.coffee', debug: true))
+  gulp.src('src/app.coffee', read: false)
+  .pipe(gulpBrowserify
+    transform: 'coffeeify'
+    extensions: '.coffee'
+    debug: true
+  )
   .pipe(rename('bundle.js'))
   .pipe(gulp.dest('app'))
 
